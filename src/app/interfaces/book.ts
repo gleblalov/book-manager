@@ -3,7 +3,7 @@ export interface IBook {
   title: string;
   author: string;
   year?: string;
-  image?: string;
+  image?: string | ArrayBuffer | null;
   description?: string;
 }
 
@@ -11,6 +11,6 @@ export interface IBookApi {
   title: string;
   author: string;
   year?: string;
-  image?: string;
+  image?: string | ArrayBuffer | null;
   description?: string;
 }

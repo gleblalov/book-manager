@@ -12,6 +12,8 @@
   <img
     class="book-card-image"
     mat-card-image
+    [style.cursor]="isEditMode ? 'pointer' : 'default'"
+    (click)="isEditMode ? triggerFileInput() : null"
     [src]="book?.image ? book?.image : 'assets/images/no-image.png'" alt="Book image"
     onError="this.src='assets/images/no-image.png'"
   >
@@ -28,6 +30,7 @@
   </ng-container>
   <ng-template #editMode>
     <form class="form" [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+      <input #fileInput type="file" (change)="onFileSelected($event)" style="display: none" />
       <mat-form-field class="form-input">
         <mat-label>Назва</mat-label>
         <input matInput placeholder="Введіть назву..." formControlName="title">
