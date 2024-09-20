@@ -1,0 +1,17 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.header {
+  height: 100px;
+
+  .mat-toolbar-row {
+    height: 100%;
+  }
+
+  &-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+}

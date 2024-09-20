@@ -1,0 +1,28 @@
+<div class="search-wrapper">
+  <mat-form-field class="search">
+    <input matInput placeholder="Пошук..." [formControl]="searchControl" (focus)="onFocus()" (blur)="onBlur()">
+  </mat-form-field>
+  <mat-list class="search-list" *ngIf="isFocused && isDirty">
+    <ng-container *ngIf="!!searchBooks.length; else emptyList">
+      <mat-list-item class="search-list-item" *ngFor="let item of searchBooks" (click)="openBookModal(item)">
+        <div class="item-content">
+          <img
+            class="item-image"
+            [src]="item.image ? item.image : 'assets/images/no-image.png'" alt="Book image"
+            onError="this.src='assets/images/no-image.png'"
+          >
+          <div>
+            <div matListItemTitle>{{ item.title }}</div>
+            <div matListItemLine>{{ item.author }}</div>
+          </div>
+        </div>
+      </mat-list-item>
+    </ng-container>
+    <ng-template #emptyList>
+      <div class="empty-list">
+        За вашим запитом нічого не знайдено
+      </div>
+    </ng-template>
+  </mat-list>
+</div>
+<div class="search-list-bg" *ngIf="isFocused && isDirty"></div>

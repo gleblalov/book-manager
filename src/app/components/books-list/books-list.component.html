@@ -1,0 +1,19 @@
+<div class="container">
+  <h1 style="text-align: center;">Список книг</h1>
+
+  <div class="book-list">
+    <ng-container *ngIf="bookService.booksList.length; else emptyList">
+      <app-book-card
+        class="book-list-card"
+        *ngFor="let card of bookService.booksList"
+        [book]="card"
+        (openModalEvent)="openBookModal($event)"
+        (deleteBookEvent)="deleteBook($event)"
+      >
+      </app-book-card>
+    </ng-container>
+    <ng-template #emptyList>
+        Ваша бібліотека порожня
+    </ng-template>
+  </div>
+</div>

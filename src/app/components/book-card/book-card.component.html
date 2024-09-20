@@ -1,0 +1,15 @@
+<mat-card class="card" appearance="outlined" mat-card-image >
+  <div #ripple="matRipple" appRippleHover [matRipple]="ripple">
+    <img
+      class="card-image"
+      (click)="openModal()"
+      [src]="book.image ? book.image : 'assets/images/no-image.png'" alt="Book image"
+      onError="this.src='assets/images/no-image.png'"
+    >
+  </div>
+  <mat-icon class="card-icon--delete" (click)="deleteBook()">delete</mat-icon>
+  <mat-card-header>
+    <mat-card-title>{{book.title}}</mat-card-title>
+    <mat-card-subtitle>{{ book.author }}</mat-card-subtitle>
+  </mat-card-header>
+</mat-card>

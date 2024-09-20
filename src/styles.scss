@@ -1,0 +1,53 @@
+
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+body,
+html {
+  height: 100%;
+  min-height: 100%;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+button, input {
+  font-family: inherit;
+}
+
+body,
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  max-width: 1140px;
+  min-height: calc(100vh - 164px);
+  margin-right: auto;
+  margin-left: auto;
+  padding: 20px 0;
+}
+
+.no-select {
+  user-select: none;
+}
+
+.search {
+  .mat-mdc-form-field-infix {
+    padding: 0;
+  }
+
+  .mat-mdc-form-field-subscript-wrapper {
+    display: none;
+  }
+}

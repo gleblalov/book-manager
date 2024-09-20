@@ -1,0 +1,14 @@
+<mat-toolbar color="primary" class="header">
+  <mat-toolbar-row>
+    <div class="header-logo no-select">
+      <mat-icon>auto_stories</mat-icon>
+      <span>Books Manager</span>
+    </div>
+    <span class="spacer"></span>
+    <app-search
+      (openBookModalEvent)="openBookModal($event)"
+    ></app-search>
+    <span class="spacer"></span>
+    <button mat-flat-button (click)="openBookModal()">Додати</button>
+  </mat-toolbar-row>
+</mat-toolbar>

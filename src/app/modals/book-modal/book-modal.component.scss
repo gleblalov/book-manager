@@ -1,0 +1,41 @@
+.book-card {
+  position: relative;
+  padding: 20px;
+
+  &-icon {
+    position: absolute;
+    z-index: 2;
+    cursor: pointer;
+  }
+
+  &-icon--edit {
+    top: 20px;
+    left: 20px;
+  }
+
+  &-icon--delete {
+    top: 20px;
+    right: 20px;
+  }
+
+  &-image {
+    width: 240px;
+    height: auto;
+    max-height: 300px;
+    margin: 0 auto;
+    object-fit: contain;
+  }
+
+  &-description {
+    margin-top: 10px;
+    padding-bottom: 0;
+  }
+
+  .form {
+    margin-top: 15px;
+
+    &-input {
+      width: 100%;
+    }
+  }
+}

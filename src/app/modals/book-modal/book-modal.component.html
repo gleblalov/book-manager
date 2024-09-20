@@ -1,0 +1,57 @@
+<mat-card class="book-card">
+  <mat-icon
+    class="book-card-icon book-card-icon--edit"
+    *ngIf="!isAddBook" (click)="switchEditMode()"
+  >
+    {{isEditMode ? 'close' : 'edit'}}
+  </mat-icon>
+  <mat-icon
+    class="book-card-icon book-card-icon--delete"
+    *ngIf="!isAddBook" (click)="deleteBook()"
+  >delete</mat-icon>
+  <img
+    class="book-card-image"
+    mat-card-image
+    [src]="book?.image ? book?.image : 'assets/images/no-image.png'" alt="Book image"
+    onError="this.src='assets/images/no-image.png'"
+  >
+  <ng-container *ngIf="!isEditMode; else editMode">
+    <mat-card-header>
+      <mat-card-title>Назва: {{ book?.title || '-//-' }}</mat-card-title>
+      <mat-card-subtitle>Автор: {{ book?.author || '-//-' }}</mat-card-subtitle>
+      <mat-card-subtitle>Рік видання: {{ book?.year || '-//-' }}{{book?.year ? 'р.' : ''}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="book-card-description">
+      <p>{{ book?.description }}</p>
+    </mat-card-content>
+  </ng-container>
+  <ng-template #editMode>
+    <form class="form" [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+      <mat-form-field class="form-input">
+        <mat-label>Назва</mat-label>
+        <input matInput placeholder="Введіть назву..." formControlName="title">
+      </mat-form-field>
+
+      <mat-form-field class="form-input">
+        <mat-label>Автор</mat-label>
+        <input matInput placeholder="Введіть автора..." formControlName="author">
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="form-input">
+        <mat-label>Виберіть рік</mat-label>
+        <input matInput [matDatepicker]="picker" formControlName="year" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker startView="multi-year" (yearSelected)="setYear($event, picker)" panelClass="year-picker">
+        </mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="form-input">
+        <mat-label>Опис</mat-label>
+        <textarea matInput placeholder="Введіть опис..." formControlName="description"></textarea>
+      </mat-form-field>
+
+      <button mat-flat-button color="primary" type="submit">{{isAddBook ? 'Додати' : 'Редагувати'}}</button>
+    </form>
+  </ng-template>
+</mat-card>
