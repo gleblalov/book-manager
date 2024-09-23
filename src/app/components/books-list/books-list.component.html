@@ -4,8 +4,8 @@
   <div class="book-list">
     <ng-container *ngIf="bookService.booksList.length; else emptyList">
       <app-book-card
-        class="book-list-card"
-        *ngFor="let card of bookService.booksList"
+        class="book-list-card" [@fadeInOut]
+        *ngFor="let card of bookService.booksList; trackBy: trackByBookId"
         [book]="card"
         (openModalEvent)="openBookModal($event)"
         (deleteBookEvent)="deleteBook($event)"

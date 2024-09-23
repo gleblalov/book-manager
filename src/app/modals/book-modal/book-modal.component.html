@@ -14,7 +14,7 @@
     mat-card-image
     [style.cursor]="isEditMode ? 'pointer' : 'default'"
     (click)="isEditMode ? triggerFileInput() : null"
-    [src]="book?.image ? book?.image : 'assets/images/no-image.png'" alt="Book image"
+    [src]="imageSrc ? imageSrc : book?.image ? book?.image : 'assets/images/no-image.png'" alt="Book image"
     onError="this.src='assets/images/no-image.png'"
   >
   <ng-container *ngIf="!isEditMode; else editMode">
@@ -54,7 +54,9 @@
         <textarea matInput placeholder="Введіть опис..." formControlName="description"></textarea>
       </mat-form-field>
 
-      <button mat-flat-button color="primary" type="submit">{{isAddBook ? 'Додати' : 'Редагувати'}}</button>
+      <button mat-flat-button color="primary" type="submit"
+              [disabled]="stateService.isStateProcessing || (!isAddBook && isFormDirty)"
+      >{{isAddBook ? 'Додати' : 'Редагувати'}}</button>
     </form>
   </ng-template>
 </mat-card>

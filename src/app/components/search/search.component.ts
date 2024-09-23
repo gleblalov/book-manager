@@ -4,16 +4,29 @@ import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatInputModule} from "@angular/material/input";
 import {MatListModule} from "@angular/material/list";
 import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {debounceTime, Subscription} from "rxjs";
+import {debounceTime, delay, of, Subscription} from "rxjs";
 import {IBook} from "../../interfaces/book";
 import {BooksService} from "../../services/books/books.service";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatIconModule} from "@angular/material/icon";
+import {StateService} from "../../services/state/state.service";
+import {State} from "../../constants/request-state";
+import {animate, style, transition, trigger} from "@angular/animations";
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatListModule, ReactiveFormsModule],
+  imports: [CommonModule, MatFormFieldModule, MatInputModule, MatListModule, ReactiveFormsModule, MatProgressSpinnerModule, MatIconModule],
   templateUrl: './search.component.html',
-  styleUrls: ['./search.component.scss']
+  styleUrls: ['./search.component.scss'],
+  animations: [
+    trigger('fadeInOut', [
+      transition(':leave', [
+        animate('500ms ease-in',
+          style({ opacity: 0, transform: 'scale(0.5)', offset: 1 }) )
+      ])
+    ])
+  ]
 })
 export class SearchComponent implements OnInit, OnDestroy {
   @Output() openBookModalEvent = new EventEmitter<IBook>();
@@ -24,6 +37,7 @@ export class SearchComponent implements OnInit, OnDestroy {
   private _subscription: Subscription | undefined;
 
   constructor(
+    public stateService: StateService,
     private _booksService: BooksService
   ) {
   }
@@ -42,6 +56,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     this.isFocused = true;
     if (this.searchControl.value) {
       this.searchControl.setValue(this.searchControl.value);
+      console.log('onFocus', this.searchControl.value)
     }
   }
 
@@ -59,9 +74,13 @@ export class SearchComponent implements OnInit, OnDestroy {
 
   private _initSubscribes() {
     this._subscription = this.searchControl.valueChanges
-      .pipe(debounceTime(300))
+      .pipe(debounceTime(500))
       .subscribe(value => {
-        this.isDirty = true;
+        console.log('valueChanges', value)
+
+        if (value) {
+          this.isDirty = true;
+        }
         this.filterBooks(value);
       });
   }
@@ -72,11 +91,18 @@ export class SearchComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.stateService.setRequestState(State.SEARCHING);
+
     const lowerCaseSearchTerm = searchTerm.toLowerCase();
 
-    this.searchBooks = this._booksService.booksList.filter(book =>
+    of(this._booksService.booksList.filter(book =>
       book.title.toLowerCase().includes(lowerCaseSearchTerm) ||
       book.author.toLowerCase().includes(lowerCaseSearchTerm)
-    );
+    ))
+      .pipe(delay(500))
+      .subscribe(filteredBooks => {
+        this.searchBooks = filteredBooks;
+        this.stateService.setRequestState(State.SUCCESS);
+      });
   }
 }

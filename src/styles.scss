@@ -1,6 +1,9 @@
 
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
 
 body,
@@ -49,5 +52,23 @@ ul {
 
   .mat-mdc-form-field-subscript-wrapper {
     display: none;
+  }
+}
+
+.snack-success {
+  --mat-mdc-snack-bar-button-color: white;
+  --mdc-snackbar-container-color: #36c021;
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+.snack-error {
+  --mat-mdc-snack-bar-button-color: white;
+  --mdc-snackbar-container-color: #ff3e3e;
+  --mdc-snackbar-supporting-text-color: white;
+}
+
+button {
+  &:disabled {
+    cursor: not-allowed;
   }
 }

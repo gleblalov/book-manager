@@ -1,0 +1,18 @@
+.spinner-wrapper {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background:  rgba(0, 0, 0, 0.4);
+  z-index: 1001;
+  overflow: auto;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .mat-mdc-progress-spinner {
+    --mdc-circular-progress-active-indicator-color: #005fff;
+  }
+}

@@ -4,7 +4,20 @@
 }
 
 .search {
+  position: relative;
   width: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .spinner {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    width: 35px;
+    height: 35px;
+  }
   .mat-mdc-form-field-focus-overlay {
     background: white;
   }
